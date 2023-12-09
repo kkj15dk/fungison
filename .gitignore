@@ -1,0 +1,4 @@
+*_results
+*.query
+/bin/GENOMES*
+/bin/ProtDatabase.db.*
