@@ -1,10 +1,10 @@
 #Created by Pablo Cruz-Morales, sept 2022
 #It writes the globals.pm file using user defined parameters
 #It delivers the results in a directory named after the -q option
-#this script should be placed at /fungison
-#the rest should be under /fungison/bin
-#the genomes database must be in /fungison/bin/genomes
-#the GENOMES.Ids file must be in /fungison/bin/
+#this script should be placed in the root folder
+#the rest should be under /bin
+#the genomes database must be in /bin/genomes
+#the GENOMES.IDs file must be in /bin/
 
 use strict;
 #use warnings;
