@@ -113,4 +113,12 @@ here i opened the file with figtree (http://tree.bio.ed.ac.uk/software/figtree/)
 ![G3P1 core contree](https://user-images.githubusercontent.com/68575424/190661230-d5c70214-fdf7-4444-a3d5-10845acfb93c.jpg)
 
 
+# Downloading genomes
+sh download_fungal_genomes.sh 'Aspergillus nidulans'
 
+# Finding CDS with augustus
+augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --stopCodonExcludedFromCDS=off > mygenome.gff
+
+# Annotating with antiSMASH
+antismash --taxon fungi --fullhmmer --genefinding-gff3 mygenome.gff mygenome.fna
+run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters

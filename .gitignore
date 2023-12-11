@@ -1,4 +1,6 @@
 *_results
 *.query
-/bin/GENOMES*
+/bin/GENOMES/*
+/bin/GENOMES.IDs
 /bin/ProtDatabase.db.*
+/jgi_genomes
