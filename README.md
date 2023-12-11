@@ -10,6 +10,17 @@ This is a clean version of CORASON integrated with the FUNGIT repository. It is 
     sudo apt install ncbi-blast+
     sudo apt install iqtree
     sudo apt install mafft
+	sudo apt install augustus
+
+# Install docker and antiSMASH
+https://docs.docker.com/engine/install/ubuntu/
+then
+mkdir ~/bin    # not required if you already have that
+curl -q https://dl.secondarymetabolites.org/releases/latest/docker-run_antismash-full > ~/bin/run_antismash
+chmod a+x ~/bin/run_antismash
+
+# To set up the docker image initially do:
+run_antismash . . --version
 
 # Install the SVG module for perl, Method 2 this method is most likely to work
 	sudo apt install cpanminus
@@ -116,7 +127,7 @@ here i opened the file with figtree (http://tree.bio.ed.ac.uk/software/figtree/)
 ![G3P1 core contree](https://user-images.githubusercontent.com/68575424/190661230-d5c70214-fdf7-4444-a3d5-10845acfb93c.jpg)
 
 
-# Downloading genomes
+# Download a genome by search term
 sh download_fungal_genomes.sh 'Aspergillus nidulans'
 
 # Finding CDS with augustus
@@ -125,3 +136,8 @@ augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --stopCodonExclud
 # Annotating with antiSMASH
 antismash --taxon fungi --fullhmmer --genefinding-gff3 mygenome.gff mygenome.fna
 run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters
+
+
+# FAQ
+Why does it say /input/genome.gff ?? - There's no folder named "Input"
+https://github.com/antismash/antismash/issues/176#issuecomment-504006622
