@@ -10,3 +10,5 @@
 *.gb
 *.gbk
 *.gff
+antismash-7.1.0*
+antismash-output/*

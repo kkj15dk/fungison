@@ -52,16 +52,16 @@ def _check_gff(gff_iterator):
 def _extract_regions(gff_iterator):
     """Function added by KC Jan 2020. This Extracts regions from the first annotated position to the last annotated position, and updates the locations to correspond to the location in the sequence.
     """
-    for rec in gff_iterator:
-        pos=[]
-        loc=min([i.location.start for i in rec.features])
-        endloc=max([i.location.end for i in rec.features])
-        for i in range(len(rec.features)):
-            pos+=range(int(rec.features[i].location.start),int(rec.features[i].location.end))
-            rec.features[i].location=SeqFeature.FeatureLocation(SeqFeature.ExactPosition(rec.features[i].location.start-loc),SeqFeature.ExactPosition(rec.features[i].location.end-loc), strand=rec.features[i].strand)
-            for j in range(len(rec.features[i].sub_features)):
-                rec.features[i].sub_features[j].location=SeqFeature.FeatureLocation(SeqFeature.ExactPosition(rec.features[i].sub_features[j].location.start-loc),SeqFeature.ExactPosition(rec.features[i].sub_features[j].location.end-loc), strand=rec.features[i].sub_features[j].strand)
-        rec.seq=rec.seq[loc:endloc]
+    for rec in gff_iterator: # There is some bug here, that's why its commented. extracting only part of the sequence made the genbank file have annotations outside of the fasta DNA... kkj15dk
+        # pos=[] 
+        # loc=min([i.location.start for i in rec.features])
+        # endloc=max([i.location.end for i in rec.features])
+        # for i in range(len(rec.features)):
+        #     pos+=range(int(rec.features[i].location.start),int(rec.features[i].location.end))
+        #     rec.features[i].location=SeqFeature.FeatureLocation(SeqFeature.ExactPosition(rec.features[i].location.start-loc),SeqFeature.ExactPosition(rec.features[i].location.end-loc), strand=rec.features[i].strand)
+        #     for j in range(len(rec.features[i].sub_features)):
+        #         rec.features[i].sub_features[j].location=SeqFeature.FeatureLocation(SeqFeature.ExactPosition(rec.features[i].sub_features[j].location.start-loc),SeqFeature.ExactPosition(rec.features[i].sub_features[j].location.end-loc), strand=rec.features[i].sub_features[j].strand)
+        # rec.seq=rec.seq[loc:endloc]
         rec.annotations["molecule_type"] = "DNA"
         yield rec
 
