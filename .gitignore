@@ -5,6 +5,7 @@
 /bin/ProtDatabase.db.*
 /jgi_genomes
 *.fna
+*.faa
 *.fasta
 *.gb
 *.gbk
