@@ -4,3 +4,8 @@
 /bin/GENOMES.IDs
 /bin/ProtDatabase.db.*
 /jgi_genomes
+*.fna
+*.fasta
+*.gb
+*.gbk
+*.gff

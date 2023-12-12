@@ -137,12 +137,17 @@ here i opened the file with figtree (http://tree.bio.ed.ac.uk/software/figtree/)
 sh download_fungal_genomes.sh 'Aspergillus nidulans'
 
 # Finding CDS with augustus
-augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --stopCodonExcludedFromCDS=off > mygenome.gff
+augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --stopCodonExcludedFromCDS=off --genemodel=complete > mygenome.gff
+--genemodel=complete: only give complete genes, no prediction of incomplete genes at the sequence boundaries
 
 # Annotating with antiSMASH
 antismash --taxon fungi --fullhmmer --genefinding-gff3 mygenome.gff mygenome.fna
 run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters
 
+# gff_to_genbank_edit
+depends on python, BioPython and bcbio-gff
+Can be installed by pip, thouhg:
+https://github.com/chapmanb/bcbb/issues/136
 
 # FAQ
 Why does it say /input/genome.gff ?? - There's no folder named "Input"
