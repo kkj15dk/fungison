@@ -13,8 +13,14 @@ This is a clean version of CORASON integrated with the FUNGIT repository. It is 
 	sudo apt install augustus
 
 # Install docker and antiSMASH
+Make sure you have uninstalled old docker versions:
+https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine
+Then install docker:
 https://docs.docker.com/engine/install/ubuntu/
-then
+To make docker run without sudo:
+https://docs.docker.com/engine/install/linux-postinstall/
+
+Then install the image:
 mkdir ~/bin    # not required if you already have that
 curl -q https://dl.secondarymetabolites.org/releases/latest/docker-run_antismash-full > ~/bin/run_antismash
 chmod a+x ~/bin/run_antismash
