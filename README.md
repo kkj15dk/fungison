@@ -146,7 +146,7 @@ run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --ta
 
 # gff_to_genbank_edit
 depends on python, BioPython and bcbio-gff
-Can be installed by pip, thouhg:
+Can be installed by pip, though:
 https://github.com/chapmanb/bcbb/issues/136
 
 # FAQ
