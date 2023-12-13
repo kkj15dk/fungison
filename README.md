@@ -44,7 +44,7 @@ run_antismash . . --version
     rm -r EXAMPLE_DATASET
 
 # Test run fungison
-    perl fungison.pl -d full -x FORMATDB -q 1  -r 1 -e 0.000001 -s 400 -f 5 -q G3P1.query
+    perl fungison.pl -d full -x FORMATDB -q 1 -r 1 -e 0.000001 -s 400 -f 5 -q G3P1.query
 
 # expected output in STDOUT:
 	USAGE: perl fungison.pl <OPTIONS>
