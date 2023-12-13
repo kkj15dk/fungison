@@ -1,5 +1,5 @@
 #!/bin/bash
-GENOMES_DIR=genomes_raw
+GENOMES_DIR=bin/GENOMES
 
 echo "Assuming DNA genomes, renaming .fasta to .fna"
 

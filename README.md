@@ -143,7 +143,6 @@ Can use 'nohup ./augustus_on_all_genomes.sh > "nohup.out" $'
 To run augustus on all genomes in genomes_raw 
 
 # Annotating with antiSMASH
-source ~/asenv/bin/activate
 run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters
 
 Can use 'nohup ./antismash_on_all_genomes.sh > "nohup.out" $'

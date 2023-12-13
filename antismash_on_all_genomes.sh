@@ -1,5 +1,5 @@
 #!/bin/bash
-GENOMES_DIR=genomes_raw
+GENOMES_DIR=bin/GENOMES
 ANTISMASH_OUTPUT_DIR=antismash_output
 
 for GENOME in "$GENOMES_DIR"/*.fna; do
@@ -10,6 +10,7 @@ for GENOME in "$GENOMES_DIR"/*.fna; do
         continue
     fi
 
+    echo "running antismash on $GENOME"
     run_antismash "$GENOME" "$ANTISMASH_OUTPUT_DIR" --genefinding-gff3 /input/"$FILENAME".gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters
     echo "antismash finished on $GENOME"
 done
