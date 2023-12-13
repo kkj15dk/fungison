@@ -139,14 +139,15 @@ sh download_fungal_genomes.sh 'Aspergillus nidulans'
 # Finding CDS with augustus
 augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --codingseq=on --stopCodonExcludedFromCDS=off > mygenome.gff
 
+Can use 'nohup ./augustus_on_all_genomes.sh > "nohup.out" $'
+To run augustus on all genomes in genomes_raw 
+
 # Annotating with antiSMASH
 source ~/asenv/bin/activate
 run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters
 
-# gff_to_genbank_edit
-depends on python, BioPython and bcbio-gff
-Can be installed by pip, though:
-https://github.com/chapmanb/bcbb/issues/136
+Can use 'nohup ./antismash_on_all_genomes.sh > "nohup.out" $'
+To run antismash on all genomes in genomes_raw. The output will be in antismash_output
 
 # FAQ
 Why does it say /input/genome.gff ?? - There's no folder named "Input"

@@ -3,7 +3,8 @@
 /bin/GENOMES/*
 /bin/GENOMES.IDs
 /bin/ProtDatabase.db.*
-/genomes_raw
+/genomes_raw/*
+/antismash_output/*
 *.fna
 *.faa
 *.fasta
@@ -12,3 +13,4 @@
 *.gff
 antismash-7.1.0*
 antismash-output/*
+nohup.out
