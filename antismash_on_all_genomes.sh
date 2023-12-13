@@ -12,5 +12,5 @@ for GENOME in "$GENOMES_DIR"/*.fna; do
 
     echo "running antismash on $GENOME"
     run_antismash "$GENOME" "$ANTISMASH_OUTPUT_DIR" --genefinding-gff3 /input/"$FILENAME".gff --taxon fungi --fullhmmer --cc-mibig --cb-knownclusters
-    echo "antismash finished on $GENOME"
+    echo "antismash finished on $GENOME\n"
 done

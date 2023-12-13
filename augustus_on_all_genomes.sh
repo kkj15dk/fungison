@@ -17,5 +17,5 @@ for GENOME in $GENOMES_DIR/*.fna; do
     fi
     echo "using augustus on $GENOME ..."
     augustus --species=aspergillus_nidulans "$GENOME" --gff3=on --stopCodonExcludedFromCDS=off > "${GENOME%.fna}.gff"
-    echo "augustus finished on $GENOME"
+    echo "augustus finished $GENOME\n"
 done
