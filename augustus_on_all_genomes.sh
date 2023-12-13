@@ -15,7 +15,7 @@ for GENOME in $GENOMES_DIR/*.fna; do
         echo "${GENOME%.fna}.gff already exists, continuing with next genome"
         continue
     fi
-    echo "using augustus on $GENOME..."
+    echo "using augustus on $GENOME ..."
     augustus --species=aspergillus_nidulans "$GENOME" --gff3=on --stopCodonExcludedFromCDS=off > "${GENOME%.fna}.gff"
     echo "augustus finished on $GENOME"
 done

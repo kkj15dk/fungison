@@ -13,5 +13,5 @@
 *.gff
 antismash-7.1.0*
 antismash-output/*
-nohup.out
+*.out
 secrets.txt
