@@ -1,0 +1,3 @@
+Assuming DNA genomes, renaming .fasta to .fna
+mv: cannot stat 'bin/GENOMES/*.fasta': No such file or directory
+using augustus on bin/GENOMES/Aspcro1_1_AssemblyScaffolds.fna...
