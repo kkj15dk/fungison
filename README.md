@@ -137,7 +137,7 @@ here i opened the file with figtree (http://tree.bio.ed.ac.uk/software/figtree/)
 sh download_fungal_genomes.sh 'Aspergillus nidulans'
 
 # Finding CDS with augustus
-augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --stopCodonExcludedFromCDS=off > mygenome.gff
+augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --codingseq=on --stopCodonExcludedFromCDS=off > mygenome.gff
 
 # Annotating with antiSMASH
 source ~/asenv/bin/activate

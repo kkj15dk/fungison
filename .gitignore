@@ -3,7 +3,7 @@
 /bin/GENOMES/*
 /bin/GENOMES.IDs
 /bin/ProtDatabase.db.*
-/jgi_genomes
+/genomes_raw
 *.fna
 *.faa
 *.fasta
