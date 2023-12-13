@@ -4,8 +4,6 @@ ANTISMASH_OUTPUT_DIR=antismash_output
 
 for GENOME in "$GENOMES_DIR"/*.fna; do
     # Test if we have the output already
-    echo "$GENOME"
-    basename "$GENOME" .fna
     FILENAME=$(basename -- "$GENOME" .fna)
     if test -f "$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"; then
         echo "antismash output for $FILENAME already exists, continuing with next genome"
