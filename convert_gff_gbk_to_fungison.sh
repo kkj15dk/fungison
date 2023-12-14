@@ -1,5 +1,5 @@
 #!/bin/bash
-GENOMES_DIR=bin/GENOMES
+GENOMES_DIR=genomes_data
 ANTISMASH_OUTPUT_DIR=antismash_output
 
 for GENOME in "$GENOMES_DIR"/*.fna; do

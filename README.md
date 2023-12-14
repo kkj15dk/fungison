@@ -28,7 +28,7 @@ chmod a+x ~/bin/run_antismash
 # To set up the docker image initially do:
 run_antismash . . --version
 
-# Install the SVG module for perl, Method 2 this method is most likely to work
+# Install the SVG module for perl, Method 1 this method is most likely to work
 	sudo apt install cpanminus
         cpanm SVG
 
@@ -51,12 +51,12 @@ run_antismash . . --version
 	
 	OPTIONS:
 	
-	-q FILE.query   	|QUERY FILE, [a file with .query extension}
+	-q FILE.query   	|QUERY FILE, [a file with .query extension]
 	-r 1234			|REFERENCE GENOME ID FROM GENOMES.IDs, WHEN NOT USING -d full MAKE SURE THE ENTRY IS LISTED IN -d [a number]
 	-e 0.0000001		|E-VALUE CUTOFF, [a number]
 	-s 200	        	|BIT-SCORE CUTOFF [a number]
 	-f 10			|NUMBER OF FLAKING GENES INCLUDED IN THE ANALYSIS, [a number]
-	-d full  OR -db 1,2,3	|IDs OF THE GENOMES INCLUDED IN THE ANALYSIS, ][full= entire database OR selected genomes separated by ',' ]
+	-d full  OR -db 1,2,3	|IDs OF THE GENOMES INCLUDED IN THE ANALYSIS, [full= entire database OR selected genomes separated by ',' ]
 	-x n or -F FORMATDB	|FORMAT THE DATABASE SELECTED WITH THE -d OPTION, ['no' is the recommeded option or 'FORMATDB']
 	
 	The database will be created with full entries
@@ -137,7 +137,7 @@ here i opened the file with figtree (http://tree.bio.ed.ac.uk/software/figtree/)
 sh download_fungal_genomes.sh 'Aspergillus nidulans'
 
 # Finding CDS with augustus
-augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --codingseq=on --stopCodonExcludedFromCDS=off > mygenome.gff
+augustus --species=aspergillus_nidulans mygenome.fna --gff3=on --stopCodonExcludedFromCDS=off > mygenome.gff
 
 Can use 'nohup ./augustus_on_all_genomes.sh > "nohup.out" $'
 To run augustus on all genomes in genomes_raw 

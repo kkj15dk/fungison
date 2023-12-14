@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "################################################################################################################################"
 echo "# This BASH script contains a set of instructions to download genomic sequences from the NCBI FTP site,                        #"
 echo "# pcruzmorales july 2022                                                                                                      #"
@@ -20,6 +21,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/assembly_summary.txt
 
 #this line is to filter only the entries with the keyword 
 echo "FINDING THE RIGHT ENTRIES..."
+echo "$1"
 grep "$1"  assembly_summary.txt  > list.txt
 
 #this line is to use the $1.list.txt file (entries with only the keyword) and create file with a list of downloads

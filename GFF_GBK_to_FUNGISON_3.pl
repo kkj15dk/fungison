@@ -1,29 +1,32 @@
+
+use File::Basename;
+
 #creates a unique ID for this run
 $rand1=int(rand(1000000));
 $rand2=int(rand(1000000));
-print "#########################################################\n";
-print "## GBK GFF TO FUNGISON				       ##\n";
-print "## A script to convert Augustus outputs in GFF3      ##\n";
-print "## and antismash v6 via docker (gbk) files into CORASON format    ##\n";
-print "## by Pablo Cruz-Morales at DTU Biosustain 	       ##\n";
-print "## pcruzm\@biosustain.dtu.dk                	       ##\n";
-print "## December 2021				       ##\n";
-print "## Inputs: a GGF3 file with the AUGUSTUS gene calling   ##\n";
-print "##        a GBK file with the  ANTISMASH 6 annotation  ##\n";
-print "## usage: perl GFF_GBK_to_FUNGISON file.gff file.gbk    ##\n";
-print "##run id : = $rand1.$rand2                               ##\n";
-print "#########################################################\n";
+print "###################################################################\n";
+print "## GBK GFF TO FUNGISON				       						##\n";
+print "## A script to convert Augustus outputs in GFF3      			##\n";
+print "## and antismash v6 via docker (gbk) files into CORASON format	##\n";
+print "## by Pablo Cruz-Morales at DTU Biosustain 	       				##\n";
+print "## pcruzm\@biosustain.dtu.dk                	       				##\n";
+print "## December 2021				       								##\n";
+print "## Inputs: a GGF3 file with the AUGUSTUS gene calling   			##\n";
+print "##        a GBK file with the  ANTISMASH 6 annotation  			##\n";
+print "## usage: perl GFF_GBK_to_FUNGISON file.gff file.gbk    			##\n";
+print "##run id : = $rand1.$rand2                               		##\n";
+print "###################################################################\n";
 #Checking that the inputs are correct and providing instruction#
 if ($ARGV[0]=~/.+.gff/){
 	print "input Augustus gff3 file is $ARGV[0]\n";
 	}
-else {print "Error\: did you entered a gff file?\nusage: perl GFF_GBK_to_FUNGISON file.gff file.gbk\n ";}
+else {print "Error\: did you enter a gff file?\nusage: perl GFF_GBK_to_FUNGISON file.gff file.gbk\n ";}
 
 if ($ARGV[1]=~/.+.gbk/){
 	print "input Antismash gbk file is $ARGV[1]\n";
 	}
 else {
-	print "Error\: did you entered a gbk file?\nusage: perl GFF_GBK_to_FUNGISON file.gff file.gbk\n ";
+	print "Error\: did you enter a gbk file?\nusage: perl GFF_GBK_to_FUNGISON file.gff file.gbk\n ";
 	}
 #storing the file name for the outputs
 open FILE, $ARGV[0] or die "I cant open the augustus GFF3 file\n";
@@ -101,7 +104,7 @@ while($line=<FILEGREP>){
 	$annotation=~s/Acyl transferase domain"/AT-/g;
 	$annotation=~s/Ketoacyl-synthetase C-terminal extension"Beta-ketoacyl synthase, C-terminal domain"Beta-ketoacyl synthase, N-terminal domain"/KS-/g;
 	$annotation=~s/Beta-ketoacyl synthase, N-terminal domain"Beta-ketoacyl synthase, C-terminal domain"/KS-/g;
-        $annotation=~s/N-terminal domain"Beta-ketoacyl synthase, C-terminal domain"Beta-ketoacyl synthase, N-terminal domain"/KS-/g;
+    $annotation=~s/N-terminal domain"Beta-ketoacyl synthase, C-terminal domain"Beta-ketoacyl synthase, N-terminal domain"/KS-/g;
 	$annotation=~s/KS-Ketoacyl-synthetase C-terminal extension"/KS-/g;
 	$annotation=~s/Zinc-binding dehydrogenase"/ER-/g;
 	$annotation=~s/Male sterility protein"/Acyl-loading-/g;
@@ -151,7 +154,7 @@ while ($line=<COORDINATES>){
 	$location="chromosome";
 	$locustag="$contig";
 	$figfam="figfam";
-	$species="$ARGV[0]";
+	$species=basename("$ARGV[0]");
 	$nucleotide="ATCG";
 	$accession="$locustag";
 	#finding  the amino acid sequences fron the amino_acids file	
