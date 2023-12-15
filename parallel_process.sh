@@ -1,4 +1,6 @@
 #!/bin/bash
+# Specify the number of parallel processes
+num_processes=6
 
 while getopts t: flag
 do
@@ -8,8 +10,6 @@ do
   esac
 done
 
-# Specify the number of parallel processes
-num_processes=6
 
 # Specify the folder containing input files
 GENOMES_DIR="genomes_data"
