@@ -19,7 +19,7 @@ augustus() {
 
     # Test if .gff already exists for the file
     if test -f "${input_file_fna%.fna}.gff"; then
-        echo "${input_file_fna%.fna}.gff already exists. Skipping augustus" >> "$log_file"
+        echo "$(date) - Skipping augustus. ${input_file_fna%.fna}.gff already exists" >> "$log_file"
         echo "$input_file_fna" >> "$processed_files"
         return
     fi
@@ -56,8 +56,8 @@ antismash() {
     # Test if we have the output .gbk already
     FILENAME=$(basename -- "$input_file_fna" .fna)
     if test -f "$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"; then
-        echo "antismash output for $FILENAME already exists. Skipping antismash" >> "$log_file"
-        echo "$input_file_fna" >> "$processed_files"
+        echo "$(date) - Skipping antismash. Antismash output for $FILENAME already exists" >> "$log_file"
+        echo "$input_file_gff" >> "$processed_files"
         return
     fi
 
@@ -91,7 +91,7 @@ convert_to_fungison() {
 
     # Test if the genome has already been converted (If there is a .txt file)
     if test -f "${input_file_gff%.gff}.txt"; then
-        echo "${input_file_gff%.gff}.txt already exist skipping conversion to fungison" >> "$log_file"
+        echo "$(date) - Skipping conversion to fungison. ${input_file_gff%.gff}.txt already exists" >> "$log_file"
         echo "$input_file_gbk" >> "$processed_files"
         return
     fi
@@ -119,7 +119,7 @@ input_file_fna=$1
 FILENAME=$(basename -- "$input_file_fna" .fna)
 
 # Augustus
-# Check if the file has already been processed, is beeing processed, or if the output is already there.
+# Check if the file has already been processed, is being processed, or if the output is already there.
 if grep -q "$input_file_fna" "$processed_files"; then
     echo "File $input_file_fna has already been processed by augustus. Skipping."
 elif grep -q "$input_file_fna" "$processing_files"; then
@@ -131,7 +131,7 @@ fi
 input_file_gff="${input_file_fna%.fna}.gff"
 
 # Antismash
-# Check if the file has already been processed, is beeing processed, or if the output is already there.
+# Check if the file has already been processed, is being processed, or if the output is already there.
 if grep -q "$input_file_gff" "$processed_files"; then
     echo "File $input_file_gff has already been processed by antismash. Skipping."
 elif grep -q "$input_file_gff" "$processing_files"; then
@@ -143,7 +143,7 @@ fi
 input_file_gbk="$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"
 
 # Conversion to fungison
-# Check if the file has already been processed, is beeing processed, or if the output is already there.
+# Check if the file has already been processed, is being processed, or if the output is already there.
 if grep -q "$input_file_gbk" "$processed_files"; then
     echo "File $input_file_gbk has already been converted to fungison. Skipping."
 elif grep -q "$input_file_gbk" "$processing_files"; then

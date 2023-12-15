@@ -6,6 +6,11 @@ num_processes=6
 # Specify the folder containing input files
 GENOMES_DIR="genomes_data"
 
+# Make logs directory if it doesn't exist
+if !(test -d logs); then
+    mkdir logs
+fi
+
 # Create a processing file if it doesn't exist
 processing_file="logs/processing.txt"
 touch "$processing_file"

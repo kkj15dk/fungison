@@ -148,6 +148,9 @@ run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --ta
 Can use 'nohup ./antismash_on_all_genomes.sh > "nohup.out" $'
 To run antismash on all genomes in genomes_raw. The output will be in antismash_output
 
+# To run parallel
+screen -L -Logfile logs/screen_log.txt -dmS parallel_processing "./parallel_process.sh"
+
 # FAQ
 Why does it say /input/genome.gff ?? - There's no folder named "Input"
 https://github.com/antismash/antismash/issues/176#issuecomment-504006622
