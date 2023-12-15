@@ -2,11 +2,11 @@
 # Specify the number of parallel processes
 num_processes=6
 
-while getopts t: flag
+while getopts "t:" flag;
 do
-  case "${flag}" in 
-    t) num_processes = ${OPTARG};;
-    *) num_processes = 6;;
+  case "$flag" in 
+    t) num_processes=${OPTARG};;
+    *) num_processes=6;;
   esac
 done
 
