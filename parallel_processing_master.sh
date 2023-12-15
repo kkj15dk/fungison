@@ -11,6 +11,9 @@ augustus() {
     # Input: file.fna
     input_file_fna=$1
 
+    # Mark file as processing
+    echo "$input_file_fna" >> "$processing_files"
+
     # Record start time
     start_time=$(date +%s)
 
@@ -20,9 +23,6 @@ augustus() {
         echo "$input_file_fna" >> "$processed_files"
         return
     fi
-
-    # Mark file as processing
-    echo "$input_file_fna" >> "$processing_files"
 
     # Log initiation of processing
     echo "$(date) - Augustus started for $FILENAME" >> "$log_file"
@@ -47,6 +47,9 @@ antismash() {
     input_file_gff=$1
     input_file_fna=$2
 
+    # Mark file as processing
+    echo "$input_file_gff" >> "$processing_files"
+
     # Record start time
     start_time=$(date +%s)
 
@@ -57,9 +60,6 @@ antismash() {
         echo "$input_file_fna" >> "$processed_files"
         return
     fi
-
-    # Mark file as processing
-    echo "$input_file_gff" >> "$processing_files"
 
     # Log initiation of processing
     echo "$(date) - Processing started for $FILENAME." >> "$log_file"
@@ -83,6 +83,9 @@ convert_to_fungison() {
     input_file_gbk=$1
     input_file_gff=$2
 
+    # Mark file as processing
+    echo "$input_file_gbk" >> "$processing_files"
+
     # Record start time
     start_time=$(date +%s)
 
@@ -94,7 +97,6 @@ convert_to_fungison() {
     fi
 
     # Log initiation of processing
-    echo "$input_file_gbk" >> "$processing_files"
     echo "$(date) - Conversion to fungison format started for $FILENAME." >> "$log_file"
 
     # Execute conversion to fungison
@@ -124,7 +126,6 @@ elif grep -q "$input_file_fna" "$processing_files"; then
     echo "File $input_file_fna is being processed by augustus. Skipping."
     exit
 else
-    echo "$input_file_fna" >> "$processing_files"
     augustus "$input_file_fna"
 fi
 input_file_gff="${input_file_fna%.fna}.gff"
@@ -137,7 +138,6 @@ elif grep -q "$input_file_gff" "$processing_files"; then
     echo "File $input_file_gff is being processed by antismash. Skipping."
     exit
 else
-    echo "$input_file_gff" >> "$processing_files"
     antismash "$input_file_gff" "$input_file_fna"
 fi
 input_file_gbk="$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"
@@ -150,6 +150,5 @@ elif grep -q "$input_file_gbk" "$processing_files"; then
     echo "File $input_file_gbk is being converted to fungison. Skipping."
     exit
 else
-    echo "$input_file_gbk" >> "$processing_files"
     convert_to_fungison "$input_file_gbk" "$input_file_gff"
 fi
