@@ -1,7 +1,6 @@
 #!/bin/bash
-# Specify the number of parallel processes
-num_processes=6
 
+# Specify the number of parallel processes
 while getopts "t:" flag;
 do
   case "$flag" in 
