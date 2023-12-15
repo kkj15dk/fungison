@@ -62,7 +62,7 @@ antismash() {
     fi
 
     # Log initiation of processing
-    echo "$(date) - Processing started for $FILENAME." >> "$log_file"
+    echo "$(date) - Antismash started for $FILENAME." >> "$log_file"
 
     # Execute antismash
     ./antismash.sh "$FILENAME" "$input_file_fna"
@@ -72,7 +72,7 @@ antismash() {
     elapsed_time=$((end_time - start_time))
 
     # Log completion of processing
-    echo "$(date) - antismash completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
+    echo "$(date) - Antismash completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
     echo "$input_file_gff" >> "$processed_files"

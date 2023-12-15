@@ -18,3 +18,4 @@ secrets.txt
 /downloaded_genomes_via_NCBI/strains.txt
 genomes_database_naming.sh
 /bin/globals.pm
+/logs/*
