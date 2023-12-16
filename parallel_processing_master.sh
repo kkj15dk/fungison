@@ -7,6 +7,11 @@ log_file="logs/processing_log.txt"
 processing_files="logs/processing.txt"
 processed_files="logs/processed_files.txt"
 
+error_exit() {
+    echo "Error: $1" > "$log_file"
+    exit 1
+}
+
 augustus() {
     # Input: file.fna
     input_file_fna=$1
@@ -28,7 +33,7 @@ augustus() {
     echo "$(date) - Augustus started for $FILENAME" >> "$log_file"
 
     # Execute augustus
-    ./augustus.sh "$input_file_fna"
+    ./augustus.sh "$input_file_fna" || error_exit "Augustus failed for $FILENAME"
 
     # Record end time
     end_time=$(date +%s)
@@ -65,7 +70,7 @@ antismash() {
     echo "$(date) - Antismash started for $FILENAME." >> "$log_file"
 
     # Execute antismash
-    ./antismash.sh "$FILENAME" "$input_file_fna"
+    ./antismash.sh "$FILENAME" "$input_file_fna" || error_exit "Antismash failed for $FILENAME"
 
     # Record end time
     end_time=$(date +%s)
@@ -100,7 +105,7 @@ convert_to_fungison() {
     echo "$(date) - Conversion to fungison format started for $FILENAME." >> "$log_file"
 
     # Execute conversion to fungison
-    ./convert_to_fungison.sh "$input_file_gbk" "$input_file_gff"
+    ./convert_to_fungison.sh "$input_file_gbk" "$input_file_gff" || error_exit "Antismash failed for $FILENAME"
 
     # Record end time
     end_time=$(date +%s)
