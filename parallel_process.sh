@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the number of parallel processes
-num_processes=45
+num_processes=40
 
 # Specify the folder containing input files
 GENOMES_DIR="genomes_data"
