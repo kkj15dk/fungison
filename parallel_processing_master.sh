@@ -12,6 +12,10 @@ error_exit() {
     exit 1
 }
 
+processed_file () {
+    echo "$1" >> "$processed_files"
+}
+
 augustus() {
     # Input: file.fna
     input_file_fna=$1
@@ -25,7 +29,7 @@ augustus() {
     # Test if .gff already exists for the file
     if test -f "${input_file_fna%.fna}.gff"; then
         echo "$(date) - Skipping augustus. ${input_file_fna%.fna}.gff already exists" >> "$log_file"
-        echo "$input_file_fna" >> "$processed_files"
+        processed_file "$input_file_fna"
         return
     fi
 
@@ -43,8 +47,8 @@ augustus() {
     echo "$(date) - Augustus completed for $FILENAME in $elapsed_time seconds" >> "$log_file"
 
     # Mark file as processed
-    sed -i /$FILENAME.fna/'d' "$processing_file"
-    echo "$input_file_fna" >> "$processed_files"
+    processed_file "$input_file_fna"
+
 }
 
 antismash() {
@@ -63,7 +67,7 @@ antismash() {
     FILENAME=$(basename -- "$input_file_fna" .fna)
     if test -f "$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"; then
         echo "$(date) - Skipping antismash. Antismash output for $FILENAME already exists" >> "$log_file"
-        echo "$input_file_gff" >> "$processed_files"
+    processed_file "$input_file_gff"
         return
     fi
 
@@ -81,8 +85,8 @@ antismash() {
     echo "$(date) - Antismash completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
-    sed -i /$FILENAME.gff/'d' "$processing_file"
-    echo "$input_file_gff" >> "$processed_files"
+    processed_file "$input_file_gff"
+
 }
 
 convert_to_fungison() {
@@ -99,7 +103,7 @@ convert_to_fungison() {
     # Test if the genome has already been converted (If there is a .txt file)
     if test -f "${input_file_gff%.gff}.txt"; then
         echo "$(date) - Skipping conversion to fungison. ${input_file_gff%.gff}.txt already exists" >> "$log_file"
-        echo "$input_file_gbk" >> "$processed_files"
+        processed_file "$input_file_gbk"
         return
     fi
 
@@ -117,8 +121,8 @@ convert_to_fungison() {
     echo "$(date) - Conversion to fungison format completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
-    sed -i /$FILENAME.gbk/'d' "$processing_file"
-    echo "$input_file_gbk" >> "$processed_files"
+    processed_file "$input_file_gbk"
+    
 }
 
 
