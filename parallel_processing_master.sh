@@ -8,7 +8,7 @@ processing_files="logs/processing.txt"
 processed_files="logs/processed_files.txt"
 
 error_exit() {
-    echo "Error: $1" > "$log_file"
+    echo "Error: $1" >> "$log_file"
     exit 1
 }
 
@@ -43,6 +43,7 @@ augustus() {
     echo "$(date) - Augustus completed for $FILENAME in $elapsed_time seconds" >> "$log_file"
 
     # Mark file as processed
+    sed -i /$FILENAME.fna/'d' "$processing_file"
     echo "$input_file_fna" >> "$processed_files"
 }
 
@@ -80,6 +81,7 @@ antismash() {
     echo "$(date) - Antismash completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
+    sed -i /$FILENAME.gff/'d' "$processing_file"
     echo "$input_file_gff" >> "$processed_files"
 }
 
@@ -115,6 +117,7 @@ convert_to_fungison() {
     echo "$(date) - Conversion to fungison format completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
+    sed -i /$FILENAME.gbk/'d' "$processing_file"
     echo "$input_file_gbk" >> "$processed_files"
 }
 
