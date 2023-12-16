@@ -151,6 +151,11 @@ To run antismash on all genomes in genomes_raw. The output will be in antismash_
 # To run parallel
 screen -L -Logfile logs/screen_log.txt -dmS parallel_processing "./parallel_process.sh"
 
+A test showed that antismash for the same genome took:
+5140 seconds using 1 core(s)
+4116 seconds using 2 core(s)
+3673 seconds using 4 core(s)
+
 # FAQ
 Why does it say /input/genome.gff ?? - There's no folder named "Input"
 https://github.com/antismash/antismash/issues/176#issuecomment-504006622
