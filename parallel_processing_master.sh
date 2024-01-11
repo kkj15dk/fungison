@@ -67,7 +67,7 @@ antismash() {
     FILENAME=$(basename -- "$input_file_fna" .fna)
     if test -f "$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"; then
         echo "$(date) - Skipping antismash. Antismash output for $FILENAME already exists" >> "$log_file"
-    processed_file "$input_file_gff"
+        processed_file "$input_file_gff"
         return
     fi
 
@@ -122,7 +122,7 @@ convert_to_fungison() {
 
     # Mark file as processed
     processed_file "$input_file_gbk"
-    
+
 }
 
 
@@ -136,7 +136,7 @@ if grep -q "$input_file_fna" "$processed_files"; then
     echo "File $input_file_fna has already been processed by augustus. Skipping."
 elif grep -q "$input_file_fna" "$processing_files"; then
     echo "File $input_file_fna is being processed by augustus. Skipping."
-    exit
+    exit 0
 else
     augustus "$input_file_fna"
 fi
@@ -148,7 +148,7 @@ if grep -q "$input_file_gff" "$processed_files"; then
     echo "File $input_file_gff has already been processed by antismash. Skipping."
 elif grep -q "$input_file_gff" "$processing_files"; then
     echo "File $input_file_gff is being processed by antismash. Skipping."
-    exit
+    exit 0
 else
     antismash "$input_file_gff" "$input_file_fna"
 fi
@@ -160,7 +160,7 @@ if grep -q "$input_file_gbk" "$processed_files"; then
     echo "File $input_file_gbk has already been converted to fungison. Skipping."
 elif grep -q "$input_file_gbk" "$processing_files"; then
     echo "File $input_file_gbk is being converted to fungison. Skipping."
-    exit
+    exit 0
 else
     convert_to_fungison "$input_file_gbk" "$input_file_gff"
 fi
