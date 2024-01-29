@@ -1,7 +1,13 @@
 #!/bin/bash
 
-# Specify the number of parallel processes
-num_processes=24
+# Specify the number of parallel processes, otherwise 6 processes
+while getopts "t:" flag;
+do
+  case "$flag" in 
+    t) num_processes=${OPTARG};;
+    *) num_processes=6;;
+  esac
+done
 
 # Specify the folder containing input files
 GENOMES_DIR="genomes_data"
