@@ -124,10 +124,10 @@ run_antismash . . --version
 	ls
 	G3P1.BLAST  G3P1.core.aln  G3P1.core.contree  G3P1.gene_context.svg  G3P1.hits.aln  G3P1.hits.contree  G3P1.report
 	
-# Cheking the  G3P1.gene_context.svg file ( you can open it in  a web browser)
+# Cheking the  G3P1.gene_context.svg file (you can open it in a web browser)
 ![G3P1 gene_context](https://user-images.githubusercontent.com/68575424/190658936-74af60b8-c9b1-48e0-825b-c3ab34d0966e.svg)
 
-# Cheking the  G3P1.core.contree ( you can open it in  a web browser) made with 4synthenic orthologs found in 5 genomes
+# Cheking the  G3P1.core.contree (you can open it in a web browser) made with 4synthenic orthologs found in 5 genomes
 here i opened the file with figtree (http://tree.bio.ed.ac.uk/software/figtree/)
 
 ![G3P1 core contree](https://user-images.githubusercontent.com/68575424/190661230-d5c70214-fdf7-4444-a3d5-10845acfb93c.jpg)
@@ -147,6 +147,14 @@ run_antismash genome.fna output_folder --genefinding-gff3 /input/genome.gff --ta
 
 Can use 'nohup ./antismash_on_all_genomes.sh > "nohup.out" $'
 To run antismash on all genomes in genomes_raw. The output will be in antismash_output
+
+# To run parallel
+screen -L -Logfile logs/screen_log.txt -dmS parallel_processing "./parallel_process.sh"
+
+A test showed that antismash for the same genome took:
+5140 seconds using 1 core(s)
+4116 seconds using 2 core(s)
+3673 seconds using 4 core(s)
 
 # FAQ
 Why does it say /input/genome.gff ?? - There's no folder named "Input"

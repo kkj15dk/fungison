@@ -7,6 +7,15 @@ log_file="logs/processing_log.txt"
 processing_files="logs/processing.txt"
 processed_files="logs/processed_files.txt"
 
+error_exit() {
+    echo "Error: $1" >> "$log_file"
+    exit 1
+}
+
+processed_file () {
+    echo "$1" >> "$processed_files"
+}
+
 augustus() {
     # Input: file.fna
     input_file_fna=$1
@@ -19,8 +28,8 @@ augustus() {
 
     # Test if .gff already exists for the file
     if test -f "${input_file_fna%.fna}.gff"; then
-        echo "${input_file_fna%.fna}.gff already exists. Skipping augustus" >> "$log_file"
-        echo "$input_file_fna" >> "$processed_files"
+        echo "$(date) - Skipping augustus. ${input_file_fna%.fna}.gff already exists" >> "$log_file"
+        processed_file "$input_file_fna"
         return
     fi
 
@@ -28,7 +37,7 @@ augustus() {
     echo "$(date) - Augustus started for $FILENAME" >> "$log_file"
 
     # Execute augustus
-    ./augustus.sh "$input_file_fna"
+    ./augustus.sh "$input_file_fna" || error_exit "$(date) - Augustus failed for $FILENAME"
 
     # Record end time
     end_time=$(date +%s)
@@ -38,7 +47,8 @@ augustus() {
     echo "$(date) - Augustus completed for $FILENAME in $elapsed_time seconds" >> "$log_file"
 
     # Mark file as processed
-    echo "$input_file_fna" >> "$processed_files"
+    processed_file "$input_file_fna"
+
 }
 
 antismash() {
@@ -56,8 +66,8 @@ antismash() {
     # Test if we have the output .gbk already
     FILENAME=$(basename -- "$input_file_fna" .fna)
     if test -f "$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"; then
-        echo "antismash output for $FILENAME already exists. Skipping antismash" >> "$log_file"
-        echo "$input_file_fna" >> "$processed_files"
+        echo "$(date) - Skipping antismash. Antismash output for $FILENAME already exists" >> "$log_file"
+        processed_file "$input_file_gff"
         return
     fi
 
@@ -65,7 +75,7 @@ antismash() {
     echo "$(date) - Antismash started for $FILENAME." >> "$log_file"
 
     # Execute antismash
-    ./antismash.sh "$FILENAME" "$input_file_fna"
+    ./antismash.sh "$FILENAME" "$input_file_fna" || error_exit "$(date) - Antismash failed for $FILENAME"
 
     # Record end time
     end_time=$(date +%s)
@@ -75,7 +85,8 @@ antismash() {
     echo "$(date) - Antismash completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
-    echo "$input_file_gff" >> "$processed_files"
+    processed_file "$input_file_gff"
+
 }
 
 convert_to_fungison() {
@@ -91,8 +102,8 @@ convert_to_fungison() {
 
     # Test if the genome has already been converted (If there is a .txt file)
     if test -f "${input_file_gff%.gff}.txt"; then
-        echo "${input_file_gff%.gff}.txt already exist skipping conversion to fungison" >> "$log_file"
-        echo "$input_file_gbk" >> "$processed_files"
+        echo "$(date) - Skipping conversion to fungison. ${input_file_gff%.gff}.txt already exists" >> "$log_file"
+        processed_file "$input_file_gbk"
         return
     fi
 
@@ -100,7 +111,7 @@ convert_to_fungison() {
     echo "$(date) - Conversion to fungison format started for $FILENAME." >> "$log_file"
 
     # Execute conversion to fungison
-    ./convert_to_fungison.sh "$input_file_gbk" "$input_file_gff"
+    ./convert_to_fungison.sh "$input_file_gbk" "$input_file_gff" || error_exit "$(date) - Coversion failed for $FILENAME"
 
     # Record end time
     end_time=$(date +%s)
@@ -110,7 +121,8 @@ convert_to_fungison() {
     echo "$(date) - Conversion to fungison format completed for $FILENAME in $elapsed_time seconds." >> "$log_file"
 
     # Mark file as processed
-    echo "$input_file_gbk" >> "$processed_files"
+    processed_file "$input_file_gbk"
+
 }
 
 
@@ -119,36 +131,36 @@ input_file_fna=$1
 FILENAME=$(basename -- "$input_file_fna" .fna)
 
 # Augustus
-# Check if the file has already been processed, is beeing processed, or if the output is already there.
+# Check if the file has already been processed, is being processed, or if the output is already there.
 if grep -q "$input_file_fna" "$processed_files"; then
     echo "File $input_file_fna has already been processed by augustus. Skipping."
 elif grep -q "$input_file_fna" "$processing_files"; then
     echo "File $input_file_fna is being processed by augustus. Skipping."
-    exit
+    exit 0
 else
     augustus "$input_file_fna"
 fi
 input_file_gff="${input_file_fna%.fna}.gff"
 
 # Antismash
-# Check if the file has already been processed, is beeing processed, or if the output is already there.
+# Check if the file has already been processed, is being processed, or if the output is already there.
 if grep -q "$input_file_gff" "$processed_files"; then
     echo "File $input_file_gff has already been processed by antismash. Skipping."
 elif grep -q "$input_file_gff" "$processing_files"; then
     echo "File $input_file_gff is being processed by antismash. Skipping."
-    exit
+    exit 0
 else
     antismash "$input_file_gff" "$input_file_fna"
 fi
 input_file_gbk="$ANTISMASH_OUTPUT_DIR/$FILENAME/$FILENAME.gbk"
 
 # Conversion to fungison
-# Check if the file has already been processed, is beeing processed, or if the output is already there.
+# Check if the file has already been processed, is being processed, or if the output is already there.
 if grep -q "$input_file_gbk" "$processed_files"; then
     echo "File $input_file_gbk has already been converted to fungison. Skipping."
 elif grep -q "$input_file_gbk" "$processing_files"; then
     echo "File $input_file_gbk is being converted to fungison. Skipping."
-    exit
+    exit 0
 else
     convert_to_fungison "$input_file_gbk" "$input_file_gff"
 fi

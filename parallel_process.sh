@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Specify the number of parallel processes
+# Specify the number of parallel processes, otherwise 6 processes
 while getopts "t:" flag;
 do
   case "$flag" in 
@@ -9,9 +9,13 @@ do
   esac
 done
 
-
 # Specify the folder containing input files
 GENOMES_DIR="genomes_data"
+
+# Make logs directory if it doesn't exist
+if !(test -d logs); then
+    mkdir logs
+fi
 
 # Create a processing file if it doesn't exist
 processing_file="logs/processing.txt"
