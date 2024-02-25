@@ -13,11 +13,13 @@ echo " "
 set -u # or set -o nounset
 
 
-#This line Downloads the complete list of bacterial assemblies in the refseq 
+#This line Downloads the complete list of fungal assemblies
 echo "GETTING THE DATABASE..."
-wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/assembly_summary.txt
-
-#Add a '#' symbol after the first time so you dont have to repeat this download every time, but leave it to get the latest database
+if [ -f assembly_summary.txt ]; then
+    echo "assembly_summary.txt already exists. To update this file, delete assembly_summary.txt and run the downloading command again"
+else
+    wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/assembly_summary.txt
+fi
 
 #this line is to filter only the entries with the keyword 
 echo "FINDING THE RIGHT ENTRIES..."
@@ -43,5 +45,5 @@ sh rename.sh
 
 #this line is to eliminate all the intermediate files that we created 
 echo "CLEANING UP..."
-rm rename.sh downloads.txt list.txt assembly_summary.txt
+rm rename.sh downloads.txt list.txt
 echo "ALL DONE :) ..."

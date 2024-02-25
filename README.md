@@ -156,6 +156,11 @@ A test showed that antismash for the same genome took:
 4116 seconds using 2 core(s)
 3673 seconds using 4 core(s)
 
+# To find all .gbk files
+find . -type f -name '*.gbk'
+and to copy them
+find . -type f -name '*genomic.gbk' -exec cp {} genomes \;
+
 # FAQ
 Why does it say /input/genome.gff ?? - There's no folder named "Input"
 https://github.com/antismash/antismash/issues/176#issuecomment-504006622

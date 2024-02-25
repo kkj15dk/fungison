@@ -11,6 +11,9 @@
 *.gb
 *.gbk
 *.gff
+*.gz
+*.aln.parstree
+genomes_data_yali
 antismash-7.1.0*
 antismash-output/*
 *.out
@@ -19,3 +22,6 @@ secrets.txt
 genomes_database_naming.sh
 /bin/globals.pm
 /logs/*
+genomes_data_yali
+.venv
+*.aln.parstree

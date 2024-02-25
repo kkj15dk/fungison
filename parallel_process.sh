@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the number of parallel processes
-num_processes=24
+num_processes=2
 
 # Specify the folder containing input files
 GENOMES_DIR="genomes_data"
@@ -19,7 +19,7 @@ touch "$processing_file"
 processed_file="logs/processed_files.txt"
 touch "$processed_file"
 
-# Create a lgo file if it doesn't exist
+# Create a log file if it doesn't exist
 log_file="logs/processing_log.txt"
 touch "$log_file"
 
