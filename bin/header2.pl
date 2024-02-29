@@ -1,4 +1,5 @@
 ###### thsi script adds an idetifier to each RAST.IDs entry
+
 use lib './';
 use globals2;
 use experimental 'smartmatch';
@@ -19,10 +20,7 @@ chomp;
     }
     else{
       print OUT "$line\n";
-    
     } 
-    
-    
   }#end while EACH
   close EACH;
 }#end while ALL
