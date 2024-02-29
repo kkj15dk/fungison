@@ -2,18 +2,6 @@
 use lib './';
 use globals;
 use experimental 'smartmatch';
-############################################################
-my $specialOrg=$SPECIAL_ORG; #globals.pm
-my $nameFolder=$NAME; #globals
-my $queries=$QUERIES; #globals
-my $num=$NUM;
-my $lista=$LIST;
-my $download=$DOWNLOAD;
-my $formatDB=$FORMAT_DB;
-my $genomesID=$GENOMES_IDs;
-my $password=$PASS;
-my $user=$USER;
-my $directorio=$dir;
 ######################################################################
 sub listas;
 sub create_listfaa;
@@ -27,12 +15,12 @@ print "Smartmatch silenced, order files exist if trees fail, aligning with mafft
 print "Adapted to run with wrapper fungison.pl\n";
 print "latest version modified by Pablo Cruz-Morales september 2022\n";
 print "##########################################################################\n\n";
-print "Your working directory is $directorio\n";
+print "Your working directory is $dir\n";
 
 open (REPORTE, ">./Report.report") or die "Couldn't open report file $!";
-my $list=listas($num,$lista);  #$list stores in a string the genomes that will be used
+my $list=listas($NUM,$LIST);  #$list stores in a string the genomes that will be used
 my @LISTA=split(",",$list);
-if ($formatDB==1){
+if ($FORMAT_DB==1){
 	print "Formatting the database...\n";
 	`perl  header.pl`;
 	`makeblastdb -in Concatenados.faa -dbtype prot -out ProtDatabase.db -logfile run`;
@@ -42,12 +30,12 @@ else {
 	print "I am assuming that you have a ProtDatabase ready for Blast\n";
 }
 print "\nSearching for homologs of the query...\n";
-	if ($lista eq ""){
-                `perl  1_Context_text.pl $queries 0 prots`;
+	if ($LIST eq ""){
+                `perl  1_Context_text.pl $QUERIES 0 prots`;
 		}
         else {
                 print "searching for homologs within selected genomes...\n";        
-                `perl  1_Context_text.pl $queries 1 prots`;
+                `perl  1_Context_text.pl $QUERIES 1 prots`;
                }
 print "Sequences found\n";
 print "Searching for clusters related to the query...\n";
@@ -90,9 +78,9 @@ if ($boolCore>1){
 	print REPORTE "There is a core composed by $boolCore orhtolog(s) in this BGC\n";
 	print REPORTE "The core is annotated in the reference organism as follows:\n";
 	## Grabbing the reference BGC
-	my $specialCluster=specialCluster($specialOrg);
+	my $specialCluster=specialCluster($SPECIAL_ORG);
 	print "Best cluster $specialCluster\n";
-        `cut -f1,2 $nameFolder/FUNCTION/$specialCluster.core.function >> Report.report`;
+        `cut -f1,2 $NAME/FUNCTION/$specialCluster.core.function >> Report.report`;
 	print "Aligning...\n";
 	`perl  multiAlign.pl`;
 	print "Sequences were aligned\n";
@@ -138,8 +126,8 @@ print "Have a great day\n\n";
 
 #####################   Sub  routines  ###############################
 sub specialCluster{
-	my $specialOrg=shift;
-	my @CLUSTERS=qx/ls $specialOrg\_*.input/;
+	my $SPECIAL_ORG=shift;
+	my @CLUSTERS=qx/ls $SPECIAL_ORG\_*.input/;
 	my $specialCluster="";
 	my $score=0;
 	foreach my $cluster (@CLUSTERS){
@@ -158,8 +146,8 @@ sub specialCluster{
 	return $specialCluster;
 }
 sub cleanFiles{
-        `rm *.lista`;
-        `rm lista.*`;
+        `rm *.LIST`;
+        `rm LIST.*`;
         `rm *.input`;
         if (-e "*.input2"){`rm *.input2`;}
         `rm *.input2`;
@@ -205,7 +193,6 @@ sub getDrawInputs{
 sub listas{
 	my $NUM=shift;
 	my $LIST=shift;
-	my $lista="";
 	create_list($NUM,$LIST);
 	create_listfaa($NUM,$LIST);	
    
@@ -230,10 +217,10 @@ sub listas{
 sub create_list{  ########### Creates a numbers lists			
 	my $NUM=shift;
 	my $LIST=shift;
-	if (-e "lista.$NUM"){
-			unlink("lista.$NUM");
+	if (-e "LIST.$NUM"){
+			unlink("LIST.$NUM");
 			}
-	open (LISTA, ">","lista.$NUM");
+	open (LISTA, ">","LIST.$NUM");
 	if ($LIST){
 		my @Genomas=split(",",$LIST);	
 		foreach (@Genomas) {
@@ -255,9 +242,9 @@ sub create_list{  ########### Creates a numbers lists
 sub create_listfaa{
 	my $NUM=shift;
 	my $LIST=shift;
-	if (-e "$NUM.lista"){unlink( "$NUM.lista");}
-	open (LISTA,"<","lista.$NUM") or die "Could not open the file lista.$NUM:$!";
-	open (LISTAFAA,">$NUM.lista") or die "Could not open the file $NUM.lista:$!";
+	if (-e "$NUM.LIST"){unlink( "$NUM.LIST");}
+	open (LISTA,"<","LIST.$NUM") or die "Could not open the file LIST.$NUM:$!";
+	open (LISTAFAA,">$NUM.LIST") or die "Could not open the file $NUM.LIST:$!";
 	for my $line (<LISTA>){
 		chomp $line;
 		$line.="\.faa\n";

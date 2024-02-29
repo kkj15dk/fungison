@@ -4,7 +4,7 @@ use lib './';
 use globals;
 use experimental 'smartmatch';
 open(OUT, ">Concatenados.faa");
-open(ALL, "lista.$NUM");
+open(ALL, "LIST.$NUM");
 
 
 while(<ALL>){
